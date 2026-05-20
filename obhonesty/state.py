@@ -134,9 +134,18 @@ class State(rx.State):
         self.clear_temp_state_values()
         return State.loop_reload_sheet_data_on_index_page
 
+    @rx.event
+    def is_client_still_connected(self):
+        # importing here avoids a circular import error
+        from obhonesty.obhonesty import app
+
+        return self.router.session.client_token in app.event_namespace.token_to_sid
+
     @rx.event(background=True)
     async def loop_reload_sheet_data_on_index_page(self):
         while self.router.page.path == ("/index"):
+            if not self.is_client_still_connected():
+                break
             async with self:
                 self.reload_sheet_data()
             await asyncio.sleep(10)
@@ -323,6 +332,8 @@ class State(rx.State):
         has_timeout_toast_displayed = False
 
         while self.is_user_activity_check_running:
+            if not self.is_client_still_connected():
+                break
             time_since_last_user_activity = (
                 get_madrid_datetime_now() - self.latest_user_activity_datetime
             )
@@ -470,6 +481,8 @@ class State(rx.State):
         async with self:
             self.is_reload_admin_dinner_data_running = True
         while self.router.page.path.startswith("/admin"):
+            if not self.is_client_still_connected():
+                break
             async with self:
                 self.last_reload_time = get_madrid_datetime_now()
                 self.update_meal_totals()
@@ -1249,7 +1262,11 @@ class State(rx.State):
         request_count = 0
 
         while True:
-            if self.current_stripe_session_id == "" or self.is_stripe_session_paid:
+            if (
+                self.current_stripe_session_id == ""
+                or self.is_stripe_session_paid
+                or not self.is_client_still_connected()
+            ):
                 return
 
             async with self:
