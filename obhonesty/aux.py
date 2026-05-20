@@ -27,7 +27,7 @@ def check_internet_connection():
         raise
 
 
-def get_model_string_type_columns(model):
+def get_model_string_type_columns(model) -> list[str]:
     string_type_columns = []
 
     for col in model.__table__.columns:

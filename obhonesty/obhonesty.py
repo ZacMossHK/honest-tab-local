@@ -338,10 +338,15 @@ def sync_updated_users(unsynced_users_with_rows: list[UnsyncedUserWithRow]):
 
 
 def add_google_sheet_data_to_session(session, google_sheet_data, model, id_column_name):
+    string_column_names = get_model_string_type_columns(model)
     for index, record in enumerate(google_sheet_data):
         try:
             if record[id_column_name] == "":
                 raise Exception(f"id column '{id_column_name}' is blank")
+            for column_name in record:
+                if column_name not in string_column_names:
+                    continue
+                record[column_name] = str(record[column_name])
             session.add(model.model_validate(record))
         except Exception as e:
             id = record[id_column_name] if record[id_column_name] != "" else "N/A"
