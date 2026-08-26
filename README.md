@@ -6,8 +6,8 @@ Contents:
 
 1. [Setup](#setup)
 2. [Local Database](#local-database)
-3. [How To Contribute](#how-to-contribute)
-4. [e2e testing]
+3. [How To Contribute](#contributing)
+4. [e2e testing](#e2e-testing)
 
 ## Setup
 
