@@ -9,8 +9,12 @@ Cypress.on("uncaught:exception", (err, runnable) => {
   }
 });
 
-Cypress.on("test:after:run", (result) => {
-  if (result.state === "failed") {
-    Cypress.runner.stop();
+afterEach(function () {
+  if (
+    Cypress.config("testIsolation") === false &&
+    this.currentTest.state === "failed"
+  ) {
+    Cypress.stop();
+    return;
   }
 });
