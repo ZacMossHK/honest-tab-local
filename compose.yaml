@@ -15,6 +15,10 @@ services:
       SQLALCHEMY_POOL_SIZE: 10
       SQLALCHEMY_MAX_OVERFLOW: 20
     restart: unless-stopped
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
 
   db:
     image: postgres:16
