@@ -293,7 +293,7 @@ def user_signup_page() -> rx.Component:
                             rx.form.control(
                                 rx.input(
                                     placeholder="E.g. 'Bob' (required)",
-                                    on_change=State.set_new_nick_name,
+                                    on_change=State.check_new_nick_name,
                                     name="nick_name",
                                     required=True,
                                     width="200%",
@@ -302,10 +302,11 @@ def user_signup_page() -> rx.Component:
                                 as_child=True,
                             ),
                             rx.form.message(
-                                "Already taken",
+                                State.new_user_name_error_message,
                                 match="valueMissing",
-                                force_match=State.invalid_new_user_name,
+                                force_match=State.is_new_nick_name_invalid,
                                 color=ERROR_MESSAGE_COLOUR,
+                                **{"data-testid": "user-name-error-message"},
                             ),
                         ),
                         rx.text("First name", weight="medium"),
@@ -381,6 +382,7 @@ def user_signup_page() -> rx.Component:
                             rx.text("Submit", size=default_button_text_size),
                             type="submit",
                             size=default_button_size,
+                            disabled=State.is_new_nick_name_invalid,
                             **{"data-testid": "user-submit-button"},
                         ),
                     ),

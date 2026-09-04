@@ -64,6 +64,7 @@ class State(rx.State):
     current_user_orders: list[Order] = []
     are_payments_enabled: bool = True
     last_reload_time: datetime = get_madrid_datetime_now()
+    new_user_name_error_message: str = ""
 
     # --- Test Environment State ---
     stripe_test_state: Literal["success"] | None = None
@@ -1407,12 +1408,32 @@ class State(rx.State):
     def no_user(self) -> bool:
         return self.current_user is None
 
+    @rx.event
+    def check_new_nick_name(self, value: str):
+        if not bool(value):
+            self.new_user_name_error_message = ""
+            return
+        if value[-1] == " ":
+            self.new_user_name_error_message = (
+                "The last character cannot be whitespace."
+            )
+        elif not value[0].isalnum():
+            self.new_user_name_error_message = (
+                "The first character must be a number or letter."
+            )
+        elif (
+            rx.session()
+            .exec(select(User.nick_name).where(User.nick_name == value))
+            .first()
+            is not None
+        ):
+            self.new_user_name_error_message = "This username is already taken."
+        else:
+            self.new_user_name_error_message = ""
+
     @rx.var
-    def invalid_new_user_name(self) -> bool:
-        return (
-            self.new_nick_name in [x.nick_name for x in self.users]
-            and self.new_nick_name != ""
-        )
+    def is_new_nick_name_invalid(self) -> bool:
+        return self.new_user_name_error_message != ""
 
     @rx.var
     def invalid_custom_item_price(self) -> bool:
