@@ -11,7 +11,7 @@ spreadsheet = gclient.open(
     "OBHonestyData" if not is_test_environment else "Test - OBHonestyData"
 )
 user_sheet = spreadsheet.worksheet("users_2026" if not is_test_environment else "users")
-item_sheet = spreadsheet.worksheet("items")
+item_sheet = spreadsheet.worksheet("items_2026" if not is_test_environment else "items")
 order_sheet = spreadsheet.worksheet(
     "orders_2026" if not is_test_environment else "orders"
 )
