@@ -40,8 +40,8 @@ describe(
       getDataTestIdElement("late-signup-item-select").then(($selectEl) => {
         cy.wrap($selectEl).should("have.text", this.dinnerOption);
       });
-      Cypress._.times(5, () => {
-        getDataTestIdElement("late-signup-register-button").click();
+      getDataTestIdElement("late-signup-register-button").then(($btn) => {
+        Cypress._.times(5, () => $btn[0].click());
       });
       getDataTestIdElement("meal-row")
         .filter(`:contains(${receiver})`)
