@@ -8,8 +8,7 @@ import {
 
 describe(
   "When a user orders dinner",
-  { tags: "@smoke" },
-  { testIsolation: false },
+  { tags: "@smoke", testIsolation: false },
   () => {
     const username = generateUsername();
     it("it is successfully ordered", () => {
