@@ -457,7 +457,9 @@ class State(rx.State):
             self.dinner_count_volunteers_served + self.dinner_count_guests_served
         )
 
-        self.dinner_count_volunteers_vegan + self.dinner_count_guests_vegan
+        self.dinner_count_vegan = (
+            self.dinner_count_volunteers_vegan + self.dinner_count_guests_vegan
+        )
         self.dinner_count_vegetarian = (
             self.dinner_count_volunteers_vegetarian
             + self.dinner_count_guests_vegetarian

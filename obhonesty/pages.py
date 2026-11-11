@@ -974,45 +974,71 @@ def admin_dinner() -> rx.Component:
                     rx.hstack(
                         rx.vstack(
                             rx.text.strong(
-                                f"Total eating dinner: {State.dinner_count}"
+                                f"Total eating dinner: {State.dinner_count}",
+                                **{"data-testid": "total-eating"},
                             ),
                             rx.text.strong(
                                 f"Total served: {State.dinner_count_served}",
                                 **{"data-testid": "total-served"},
                             ),
-                            rx.text(f"Meat: {State.dinner_count_meat}"),
-                            rx.text(f"Vegetarian: {State.dinner_count_vegetarian}"),
-                            rx.text(f"Vegan: {State.dinner_count_vegan}"),
+                            rx.text(
+                                f"Meat: {State.dinner_count_meat}",
+                                **{"data-testid": "total-meat"},
+                            ),
+                            rx.text(
+                                f"Vegetarian: {State.dinner_count_vegetarian}",
+                                **{"data-testid": "total-vegetarian"},
+                            ),
+                            rx.text(
+                                f"Vegan: {State.dinner_count_vegan}",
+                                **{"data-testid": "total-vegan"},
+                            ),
                             flex="1",
                         ),
                         rx.vstack(
                             rx.text.strong(
-                                f"Guests eating dinner: {State.dinner_count_guests}"
+                                f"Guests eating dinner: {State.dinner_count_guests}",
+                                **{"data-testid": "total-guests-eating"},
                             ),
                             rx.text.strong(
                                 f"Total served: {State.dinner_count_guests_served}",
                                 **{"data-testid": "total-guests-served"},
                             ),
-                            rx.text(f"Meat: {State.dinner_count_guests_meat}"),
                             rx.text(
-                                f"Vegetarian: {State.dinner_count_guests_vegetarian}"
+                                f"Meat: {State.dinner_count_guests_meat}",
+                                **{"data-testid": "total-guests-meat"},
                             ),
-                            rx.text(f"Vegan: {State.dinner_count_guests_vegan}"),
+                            rx.text(
+                                f"Vegetarian: {State.dinner_count_guests_vegetarian}",
+                                **{"data-testid": "total-guests-vegetarian"},
+                            ),
+                            rx.text(
+                                f"Vegan: {State.dinner_count_guests_vegan}",
+                                **{"data-testid": "total-guests-vegan"},
+                            ),
                             flex="1",
                         ),
                         rx.vstack(
                             rx.text.strong(
-                                f"Volunteers eating dinner: {State.dinner_count_volunteers}"
+                                f"Volunteers eating dinner: {State.dinner_count_volunteers}",
+                                **{"data-testid": "total-volunteers-eating"},
                             ),
                             rx.text.strong(
                                 f"Total served: {State.dinner_count_volunteers_served}",
                                 **{"data-testid": "total-volunteers-served"},
                             ),
-                            rx.text(f"Meat: {State.dinner_count_volunteers_meat}"),
                             rx.text(
-                                f"Vegetarian: {State.dinner_count_volunteers_vegetarian}"
+                                f"Meat: {State.dinner_count_volunteers_meat}",
+                                **{"data-testid": "total-volunteers-meat"},
                             ),
-                            rx.text(f"Vegan: {State.dinner_count_volunteers_vegan}"),
+                            rx.text(
+                                f"Vegetarian: {State.dinner_count_volunteers_vegetarian}",
+                                **{"data-testid": "total-volunteers-vegetarian"},
+                            ),
+                            rx.text(
+                                f"Vegan: {State.dinner_count_volunteers_vegan}",
+                                **{"data-testid": "total-volunteers-vegan"},
+                            ),
                             flex="1",
                         ),
                         spacing="4",
